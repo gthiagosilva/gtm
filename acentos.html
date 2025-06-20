@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Remover Acentos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .resultado {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Remover Acentos e Caracteres Especiais</h2>
+  <textarea id="entrada" rows="4" placeholder="Digite sua frase com acentos..."></textarea>
+  <div class="resultado" id="saida"></div>
+
+  <script>
+    function removerAcentos(texto) {
+      return texto
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ç/g, "c")
+        .replace(/Ç/g, "C");
+    }
+
+    const entrada = document.getElementById("entrada");
+    const saida = document.getElementById("saida");
+
+    entrada.addEventListener("input", () => {
+      const textoOriginal = entrada.value;
+      const textoLimpo = removerAcentos(textoOriginal);
+      saida.textContent = "Resultado: " + textoLimpo;
+    });
+  </script>
+
+</body>
+</html>
